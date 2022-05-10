@@ -1,0 +1,70 @@
+<div class="container">
+  <ng-container *ngIf="email !== null; else empty_state">
+    <mat-card>
+      <mat-card-actions align="end">
+        <button
+          (click)="toggleProcessed(!email.processed)"
+          [color]="email.processed ? 'primary' : 'accent'"
+          mat-raised-button>
+          Mark as {{ email.processed ? 'unprocessed' : 'processed' }}
+        </button>
+        <button (click)="remove()" color="warn" mat-raised-button>
+          Remove
+        </button>
+      </mat-card-actions>
+      <mat-card-content>
+        <mat-card-title>{{ email.subject || '(No Subject)' }}</mat-card-title>
+        <mat-card-subtitle>
+          <ng-container *ngIf="email.from">
+            <div class="row">
+              <strong>From:</strong>
+              <app-address-actions
+                [class.exists]="email.from.user"
+                [email]="email.from"
+                (userCreated)="handleUserCreate($event, 'from')"
+                class="address">
+              </app-address-actions>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="email.to">
+            <div class="row">
+              <strong>To:</strong>
+              <app-address-actions
+                [class.exists]="email.to.user"
+                [email]="email.to"
+                (userCreated)="handleUserCreate($event, 'to')"
+                class="address">
+              </app-address-actions>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="email.cc">
+            <div class="row">
+              <strong>CC:</strong>
+              <app-address-actions
+                [class.exists]="email.cc.user"
+                [email]="email.cc"
+                (userCreated)="handleUserCreate($event, 'cc')"
+                class="address">
+              </app-address-actions>
+            </div>
+          </ng-container>
+        </mat-card-subtitle>
+        <div [innerHtml]="email.html" class="content"></div>
+      </mat-card-content>
+      <ng-container *ngIf="email.attachments.length > 0">
+        <mat-divider inset></mat-divider>
+        <mat-card-actions class="attachments">
+          <h3>Attachments</h3>
+          <ng-container *ngFor="let attachment of email.attachments">
+            <app-attachment
+              [name]="attachment.filename"
+              [contentType]="attachment.contentType"></app-attachment>
+          </ng-container>
+        </mat-card-actions>
+      </ng-container>
+    </mat-card>
+  </ng-container>
+  <ng-template #empty_state>
+    <p>No email selected</p>
+  </ng-template>
+</div>

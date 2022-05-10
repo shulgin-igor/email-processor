@@ -1,0 +1,30 @@
+:host {
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  .item {
+    padding: 1em;
+
+    .subject {
+      display: block;
+    }
+  }
+
+  .processed-marker {
+    position: absolute;
+    right: -6px;
+    top: 0;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #ff4081;
+    z-index: 2;
+    transform: rotate(45deg);
+  }
+}

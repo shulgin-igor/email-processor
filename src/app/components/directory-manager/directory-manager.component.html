@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="list">
+    <div *ngFor="let item of directories" class="item">
+      <a (click)="selectDirectory(item)">
+        <mat-icon class="icon-directory">folder</mat-icon>
+        <strong>{{ item.path }}</strong>
+      </a>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <button (click)="open()" color="primary" mat-flat-button>
+    <mat-icon>add</mat-icon>
+    Open directory
+  </button>
+  <input
+    #directoryPicker
+    (change)="handleDirectoryChange($event)"
+    class="directory-picker-input"
+    type="file"
+  />
+</div>

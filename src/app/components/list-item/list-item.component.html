@@ -1,0 +1,9 @@
+<div class="container">
+  <div class="item">
+    <small>#{{ index + 1 }}</small>
+    <strong class="subject">{{ item.subject || '(No Subject)' }}</strong>
+    <span>{{ item.from }}</span>
+  </div>
+  <mat-divider></mat-divider>
+  <div *ngIf="item.processed" class="processed-marker"></div>
+</div>

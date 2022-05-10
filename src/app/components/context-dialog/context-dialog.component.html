@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>Add context</h2>
+<mat-dialog-content>
+  <form (ngSubmit)="saveContext()" [formGroup]="contextForm">
+    <mat-form-field appearance="fill">
+      <textarea
+        formControlName="context"
+        matInput
+        rows="12"
+        (keydown)="handleDown($event)"></textarea>
+    </mat-form-field>
+    <div mat-dialog-actions>
+      <button mat-raised-button mat-dialog-close="">Cancel</button>
+      <button color="primary" mat-raised-button>Save</button>
+    </div>
+  </form>
+</mat-dialog-content>

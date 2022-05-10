@@ -1,0 +1,26 @@
+.container {
+  padding: 1em;
+  min-height: calc(100% - 2em);
+  display: flex;
+  max-width: calc(100% - 32px);
+  word-break: break-all;
+
+  mat-card {
+    width: calc(100% - 32px);
+  }
+}
+
+mat-card-title {
+  margin-bottom: 20px;
+}
+
+mat-card-subtitle {
+  .row {
+    margin-bottom: 5px;
+  }
+}
+
+.attachments {
+  margin-left: 0;
+  margin-right: 0;
+}

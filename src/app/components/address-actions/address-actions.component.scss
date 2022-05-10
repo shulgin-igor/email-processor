@@ -1,0 +1,17 @@
+.container {
+  font-size: 9pt;
+  border: 1px solid #0000001f;
+  border-radius: 10px;
+  padding: 0.2em 0.8em;
+  font-weight: 700;
+  margin-left: 1em;
+  cursor: pointer;
+
+  &.success {
+    color: #3f51b5;
+  }
+
+  mat-icon {
+    vertical-align: middle;
+  }
+}

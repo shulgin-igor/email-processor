@@ -1,0 +1,7 @@
+<a (click)="handleEmailClick()" [class.success]="email.user" class="container">
+  {{ email.address }}
+  <mat-icon *ngIf="email.user; else plusButton" inline>assignment</mat-icon>
+  <ng-template #plusButton>
+    <mat-icon inline>add</mat-icon>
+  </ng-template>
+</a>
