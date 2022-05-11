@@ -3,6 +3,7 @@ import { DirectoryService } from 'src/app/services/directory.service';
 import { ElectronService } from 'src/app/services/electron.service';
 import { Item } from '../../interfaces/Item';
 import { MatDialog } from '@angular/material/dialog';
+import { ImportDialogComponent } from '../import-dialog/import-dialog.component';
 
 @Component({
   selector: 'app-main',
@@ -13,7 +14,7 @@ export class MainComponent implements OnInit {
   items: Item[] = [];
   selectedItem: any = null; // TODO: set type
   selectedIndex: number = -1;
-  lazyLoadAvailable: boolean = false;
+  loading: boolean = false;
 
   @HostListener('window:keyup', ['$event']) handleKeyup($event: KeyboardEvent) {
     if (this.dialog.openDialogs.length === 0) {
@@ -49,25 +50,31 @@ export class MainComponent implements OnInit {
   }
 
   getFiles() {
-    const dir = this.directoryService.getDirectory();
+    const dir = this.directoryService.getSelectedDirectory();
 
-    this.electronService
-      .getFiles(dir.path, this.items.length)
-      .subscribe(data => {
-        this.lazyLoadAvailable = data.hasMore;
+    this.electronService.getFiles(dir.id).subscribe(data => {
+      if (data.status === 'success') {
         this.items = [...this.items, ...data.items];
-      });
+      } else {
+        const dialogRef = this.dialog.open(ImportDialogComponent, {
+          minWidth: 300,
+          disableClose: true,
+        });
+
+        dialogRef.afterClosed().subscribe(() => this.getFiles());
+      }
+    });
   }
 
   select(item: Item, index: number) {
-    const dir = this.directoryService.getDirectory();
+    this.selectedIndex = index;
+    this.selectedItem = null;
+    this.loading = true;
 
-    this.electronService
-      .openFile(dir.path + '/' + item.fileName)
-      .subscribe(data => {
-        this.selectedItem = data;
-        this.selectedIndex = index;
-      });
+    this.electronService.openFile(item.id).subscribe(data => {
+      this.loading = false;
+      this.selectedItem = data;
+    });
   }
 
   handleRemove() {

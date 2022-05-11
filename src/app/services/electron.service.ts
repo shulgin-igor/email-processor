@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { from, Observable } from 'rxjs';
+import { BehaviorSubject, from, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -7,16 +7,35 @@ import { from, Observable } from 'rxjs';
 export class ElectronService {
   constructor() {}
 
-  openDirectoryPicker(): Observable<string> {
+  get importProgress$(): Observable<any> {
+    const subj = new Subject();
+
+    // TODO: set type
+    window.electronAPI.onImportProgress((event: any, data: any) => {
+      subj.next(data);
+
+      if (data.processed === data.total) {
+        subj.complete();
+      }
+    });
+
+    return subj.asObservable();
+  }
+
+  openDirectoryPicker(): Observable<any> {
     return from(window.electronAPI.openDirectory());
   }
 
-  getFiles(path: string, offset: number): Observable<any> {
-    return from(window.electronAPI.getFiles(path, offset));
+  getDirectories(ids: number[]): Observable<any> {
+    return from(window.electronAPI.getDirectories(ids));
   }
 
-  openFile(path: string): Observable<any> {
-    return from(window.electronAPI.openFile(path));
+  getFiles(directoryId: number): Observable<any> {
+    return from(window.electronAPI.getFiles(directoryId));
+  }
+
+  openFile(emailId: number): Observable<any> {
+    return from(window.electronAPI.openFile(emailId));
   }
 
   saveUser(address: string, path: string): Observable<any> {

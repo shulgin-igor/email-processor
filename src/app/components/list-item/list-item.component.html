@@ -1,8 +1,8 @@
 <div class="container">
   <div class="item">
-    <small>#{{ index + 1 }}</small>
+    <small>#{{ item.id }}</small>
     <strong class="subject">{{ item.subject || '(No Subject)' }}</strong>
-    <span>{{ item.from }}</span>
+    <span>{{ item.date | date: 'dd.MM.yyyy HH:mm' }}</span>
   </div>
   <mat-divider></mat-divider>
   <div *ngIf="item.processed" class="processed-marker"></div>

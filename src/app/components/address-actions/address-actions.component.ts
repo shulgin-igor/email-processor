@@ -28,7 +28,7 @@ export class AddressActionsComponent {
   }
 
   saveUser() {
-    const dir = this.directoryService.getDirectory();
+    const dir = this.directoryService.getSelectedDirectory();
 
     this.electronService
       .saveUser(this.email.address, dir.path)

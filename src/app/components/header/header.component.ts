@@ -16,11 +16,11 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.directory = this.directoryService.getDirectory()?.path;
+    this.directory = this.directoryService.getSelectedDirectory()?.path;
   }
 
   back() {
-    this.directoryService.clearDirectory();
+    this.directoryService.clearSelectedDirectory();
     this.router.navigate(['']);
   }
 }

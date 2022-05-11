@@ -4,8 +4,9 @@
   border-radius: 10px;
   padding: 0.2em 0.8em;
   font-weight: 700;
-  margin-left: 1em;
   cursor: pointer;
+  line-height: 9pt;
+  display: inline-block;
 
   &.success {
     color: #3f51b5;

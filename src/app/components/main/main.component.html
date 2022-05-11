@@ -5,31 +5,28 @@
       <mat-list-item
         (click)="select(item, i)"
         *ngFor="let item of items; let i = index"
-        [class.selected]="item.id === selectedItem?.messageId"
+        [class.selected]="selectedIndex === i"
         class="list-item"
         role="listitem"
         [tabindex]="i"
         [appSelectOnFocus]="item.id === selectedItem?.messageId">
         <app-list-item [item]="item" [index]="i"></app-list-item>
       </mat-list-item>
-      <mat-list-item
-        class="list-item load-more"
-        role="listitem"
-        *ngIf="lazyLoadAvailable">
-        <div class="button-container">
-          <button mat-raised-button color="primary" (click)="getFiles()">
-            Load more
-          </button>
-        </div>
-      </mat-list-item>
     </mat-list>
   </mat-sidenav>
   <mat-sidenav-content>
-    <app-email-view
-      [email]="selectedItem"
-      (emailRemoved)="handleRemove()"
-      (processedFlagChanged)="
-        handleProcessedFlagChange($event)
-      "></app-email-view>
+    <ng-container *ngIf="!loading; else itemSpinner">
+      <app-email-view
+        [email]="selectedItem"
+        (emailRemoved)="handleRemove()"
+        (processedFlagChanged)="
+          handleProcessedFlagChange($event)
+        "></app-email-view>
+    </ng-container>
+    <ng-template #itemSpinner>
+      <div class="loading">
+        <mat-spinner diameter="50"></mat-spinner>
+      </div>
+    </ng-template>
   </mat-sidenav-content>
 </mat-sidenav-container>

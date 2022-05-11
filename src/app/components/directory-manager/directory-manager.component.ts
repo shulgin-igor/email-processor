@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Directory } from 'src/app/interfaces/Directory';
 import { Router } from '@angular/router';
 import { DirectoryService } from 'src/app/services/directory.service';
 import { ElectronService } from 'src/app/services/electron.service';
+import { Directory } from '../../interfaces/Directory';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-directory-manager',
@@ -24,26 +25,25 @@ export class DirectoryManagerComponent implements OnInit {
     const directories = localStorage.getItem('directories');
 
     if (directories) {
-      this.directories = JSON.parse(directories);
+      this.electronService
+        .getDirectories(JSON.parse(directories))
+        .pipe(tap(console.log))
+        .subscribe(data => (this.directories = data));
     }
   }
 
   open() {
-    this.electronService.openDirectoryPicker().subscribe(path => {
+    this.electronService.openDirectoryPicker().subscribe(data => {
       localStorage.setItem(
         'directories',
-        JSON.stringify([...this.directories, { path }])
+        JSON.stringify([...this.directories.map(({ id }) => id), data.id])
       );
-      this.selectDirectory({ path });
+      this.selectDirectory(data.id);
     });
   }
 
   selectDirectory(directory: Directory) {
     this.directoryService.setDirectory(directory);
     this.router.navigate(['app']);
-  }
-
-  handleDirectoryChange(event: any) {
-    console.log(event);
   }
 }

@@ -8,6 +8,10 @@ const ICONS: { [contentType: string]: string } = {
     'fa-file-word',
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
     'fa-file-excel',
+  'application/msword': 'fa-file-word',
+  'application/rtf': 'fa-file-alt',
+  'application/octet-stream': 'fa-file',
+  'application/pdf': 'fa-file-pdf',
 };
 
 @Component({
@@ -20,7 +24,6 @@ export class AttachmentComponent {
 
   @Input() set contentType(value: string) {
     this.icon = ICONS[value];
-    console.log(value, ICONS[value]);
   }
   @Input() name: string;
 

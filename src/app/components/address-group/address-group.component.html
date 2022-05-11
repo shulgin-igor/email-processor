@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="name">
+    <strong>{{ name }}:</strong>
+  </div>
+  <div class="list">
+    <ng-container *ngFor="let item of list">
+      <app-address-actions
+        [class.exists]="item.user"
+        [email]="item"
+        (userCreated)="handleUserCreate($event, item)"
+        class="address">
+      </app-address-actions>
+    </ng-container>
+  </div>
+</div>

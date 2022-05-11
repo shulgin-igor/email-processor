@@ -15,46 +15,25 @@
       <mat-card-content>
         <mat-card-title>{{ email.subject || '(No Subject)' }}</mat-card-title>
         <mat-card-subtitle>
-          <ng-container *ngIf="email.from">
-            <div class="row">
-              <strong>From:</strong>
-              <app-address-actions
-                [class.exists]="email.from.user"
-                [email]="email.from"
-                (userCreated)="handleUserCreate($event, 'from')"
-                class="address">
-              </app-address-actions>
-            </div>
+          <ng-container *ngIf="email.from.length">
+            <app-address-group
+              name="From"
+              [list]="email.from"></app-address-group>
           </ng-container>
-          <ng-container *ngIf="email.to">
-            <div class="row">
-              <strong>To:</strong>
-              <app-address-actions
-                [class.exists]="email.to.user"
-                [email]="email.to"
-                (userCreated)="handleUserCreate($event, 'to')"
-                class="address">
-              </app-address-actions>
-            </div>
+          <ng-container *ngIf="email.to.length">
+            <app-address-group name="To" [list]="email.to"></app-address-group>
           </ng-container>
-          <ng-container *ngIf="email.cc">
-            <div class="row">
-              <strong>CC:</strong>
-              <app-address-actions
-                [class.exists]="email.cc.user"
-                [email]="email.cc"
-                (userCreated)="handleUserCreate($event, 'cc')"
-                class="address">
-              </app-address-actions>
-            </div>
+          <ng-container *ngIf="email.cc.length">
+            <app-address-group name="CC" [list]="email.cc"></app-address-group>
           </ng-container>
         </mat-card-subtitle>
-        <div [innerHtml]="email.html" class="content"></div>
+        <mat-divider inset></mat-divider>
+        <div [innerHtml]="email.content" class="content"></div>
       </mat-card-content>
       <ng-container *ngIf="email.attachments.length > 0">
         <mat-divider inset></mat-divider>
         <mat-card-actions class="attachments">
-          <h3>Attachments</h3>
+          <h2>Attachments</h2>
           <ng-container *ngFor="let attachment of email.attachments">
             <app-attachment
               [name]="attachment.filename"
@@ -64,6 +43,7 @@
       </ng-container>
     </mat-card>
   </ng-container>
+
   <ng-template #empty_state>
     <p>No email selected</p>
   </ng-template>

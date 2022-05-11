@@ -25,6 +25,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SelectOnFocusDirective } from './directives/select-on-focus.directive';
 import { AttachmentComponent } from './components/attachment/attachment.component';
+import { AddressGroupComponent } from './components/address-group/address-group.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ImportDialogComponent } from './components/import-dialog/import-dialog.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -38,6 +42,8 @@ import { AttachmentComponent } from './components/attachment/attachment.componen
     ContextDialogComponent,
     SelectOnFocusDirective,
     AttachmentComponent,
+    AddressGroupComponent,
+    ImportDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +61,8 @@ import { AttachmentComponent } from './components/attachment/attachment.componen
     MatInputModule,
     MatSnackBarModule,
     MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatProgressBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

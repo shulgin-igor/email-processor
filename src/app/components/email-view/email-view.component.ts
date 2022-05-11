@@ -9,8 +9,6 @@ import { ElectronService } from '../../services/electron.service';
 import { DirectoryService } from '../../services/directory.service';
 import { MatDialog } from '@angular/material/dialog';
 
-type Participant = 'from' | 'to' | 'cc';
-
 @Component({
   selector: 'app-email-view',
   templateUrl: './email-view.component.html',
@@ -35,7 +33,7 @@ export class EmailViewComponent {
 
   remove() {
     if (confirm('Are you sure you want to remove this email?')) {
-      const path = `${this.directoryService.getDirectory().path}/${
+      const path = `${this.directoryService.getSelectedDirectory().path}/${
         this.email.fileName
       }`;
 
@@ -51,9 +49,5 @@ export class EmailViewComponent {
       .subscribe(() => {
         this.processedFlagChanged.emit(processed);
       });
-  }
-
-  handleUserCreate(user: any, source: Participant) {
-    this.email[source].user = user;
   }
 }

@@ -1,0 +1,16 @@
+.container {
+  margin-bottom: 5px;
+  display: grid;
+  grid-template-columns: 40px auto;
+
+  strong {
+    min-width: 40px;
+    text-align: right;
+    display: inline-block;
+    margin-right: 1em;
+  }
+
+  .address {
+    margin: 2px;
+  }
+}

@@ -1,7 +1,8 @@
 export interface Item {
-  id: string;
+  id: number;
+  messageId: string;
   subject: string;
-  from: string;
-  fileName: string;
+  date: Date;
+  filename: string;
   processed: boolean;
 }

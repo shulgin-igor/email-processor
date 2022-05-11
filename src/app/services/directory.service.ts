@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Directory } from '../interfaces/Directory';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,15 +15,15 @@ export class DirectoryService {
     this.selectedDirectory.next(directory);
   }
 
-  getDirectory() {
+  getSelectedDirectory(): Directory {
     return this.selectedDirectory.getValue();
   }
 
-  getDirectory$() {
+  getSelectedDirectory$(): Observable<Directory> {
     return this.selectedDirectory.asObservable();
   }
 
-  clearDirectory() {
+  clearSelectedDirectory() {
     this.selectedDirectory.next(null);
   }
 }

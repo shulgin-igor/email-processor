@@ -18,6 +18,8 @@ export class DirectoryGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean | UrlTree> {
-    return this.directoryService.getDirectory$().pipe(map(dir => !!dir));
+    return this.directoryService
+      .getSelectedDirectory$()
+      .pipe(map(dir => !!dir));
   }
 }
