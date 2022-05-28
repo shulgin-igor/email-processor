@@ -10,7 +10,7 @@ const readdir = promisify(fs.readdir);
 
 const logStream = fs.createWriteStream('./db.log', { flags: 'a' });
 const sequelize = new Sequelize('sqlite:./db.sqlite', {
-  logging: msg => logStream.write(msg),
+  logging: msg => logStream.write(`${msg}\n`),
 });
 
 let mainWindow;
@@ -213,6 +213,15 @@ const getFullEmailInfo = filePath => {
       .on('data', data => {
         if (data.type === 'attachment') {
           // TODO: process attachments
+          const attachment = {
+            filename: data.headers.get('content-disposition').params.filename,
+            contentType: data.headers.get('content-type').value,
+          };
+
+          emailInfo.attachments.push(attachment);
+
+          console.log(attachment)
+
           data.release();
         } else {
           // TODO: remove width

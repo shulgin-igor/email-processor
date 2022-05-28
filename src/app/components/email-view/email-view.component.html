@@ -2,6 +2,9 @@
   <ng-container *ngIf="email !== null; else empty_state">
     <mat-card>
       <mat-card-actions align="end">
+        <ng-container *ngIf="email.attachments.length">
+          <button mat-raised-button>Download Attachments</button>
+        </ng-container>
         <button
           (click)="toggleProcessed(!email.processed)"
           [color]="email.processed ? 'primary' : 'accent'"
